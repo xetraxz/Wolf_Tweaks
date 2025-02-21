@@ -19,12 +19,6 @@
 </div>
 
 <div align="center">
-  <h3>
-    <a href="https://github.com/xetraxz/ConservativeX">
-      Source Code
-    </a>
-    <span> | </span>
     
 </div>
 
-### Usage
