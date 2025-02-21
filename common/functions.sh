@@ -147,10 +147,33 @@ mount_mirrors() {
 }
 
 # Credits
-ui_print "**************************************"
-ui_print "*   MMT Extended by Zackptg5 @ XDA   *"
-ui_print "**************************************"
-ui_print " "
+#!/system/bin/sh
+
+# Display WOLF banner using ui_print
+#!/system/bin/sh
+
+# Display WOLF banner using ui_print
+ui_print "====================================="
+ui_print "      🐺 WOLF Tweaks 🐺      "
+ui_print "====================================="
+ui_print "     _                  _             "
+ui_print "    | '-.            .-' |            "
+ui_print "    | -. '..\\,.//,.' .- |            "
+ui_print "    |   \\  \\\\||///  /   |           "
+ui_print "   /|    )M\\/%%%%/\/(  . |\\         "
+ui_print "  (/\  MM\\/%%/\\||/%\\/MM  /      "
+ui_print "  (//M   \\%\\\\\\%%//%//   M\\\    "
+ui_print " (// M________ /\\ ________M \\\    "
+ui_print " (// M\\ \',)|  |(',)/ /M \\\     "
+ui_print "  (\\\\ M\\.  /,\\//,\\  ./M //)     "
+ui_print "    / MMmm( \\||// )mmMM \\          "
+ui_print "     // MMM\\\\||///MMM \\\\         "
+ui_print "      \\\\''\/||\/''//         "
+ui_print "       \\\\\oo/ )//             "
+ui_print "          '-..-'                  "
+ui_print "====================================="
+ui_print " ⚡ Strength • Power  ⚡ "
+ui_print "====================================="
 
 # Check for min/max api version
 [ -z $MINAPI ] || { [ $API -lt $MINAPI ] && abort "! Your system API of $API is less than the minimum api of $MINAPI! Aborting!"; }
@@ -318,3 +341,4 @@ set_permissions
 
 # Complete install
 cleanup
+
