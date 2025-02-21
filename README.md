@@ -1,6 +1,6 @@
 # ConservativeX
 
-Conservative Governer Tweaker
+Conservative Governer Tweakes
 
 ## Description
 
