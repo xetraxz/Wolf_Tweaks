@@ -1,7 +1,7 @@
-id=Conservative-X
-name=ConservativeX
+id=wolftweaks
+name=Wolf Tweaks
 version=v1.0
 versionCode=001
 author=xetraxz
 description=Conservative Governer tweaks for better battery backup without losing performace.
-updateJson=https://raw.githubusercontent.com/Zackptg5/MMT-Extended/master/update.json
+updateJson=https://raw.githubusercontent.com/xetraxz/Wolf_Tweaks/master/update.json
