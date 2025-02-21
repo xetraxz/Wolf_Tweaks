@@ -1,30 +1,22 @@
-# Project Title
+# ConservativeX
 
-Simple overview of use/purpose.
+Conservative Governer Tweaker
 
 ## Description
 
-An in-depth paragraph about your project and overview of use.
+Tweak Conservative Governer Parameters To Get Best Battery Backup without compromising performace.
 
 ## Getting Started
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+* A Rooted Android Device
 
 ### Installing
 
 * How/where to download your program
-
-### Executing program
-
-* How to run the program
-* Step-by-step bullets
-```
-Flash The Module 
-Reboot
-```
+* Flash Module on Magisk/KSU
+* Reboot
 
 ## Help
 
