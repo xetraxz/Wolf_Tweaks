@@ -1,0 +1,9 @@
+# Reduce logging to save battery
+persist.logd.enable=0
+ro.config.nocheckin=1
+# Optimize power consumption
+ro.config.hw_fast_dormancy=1
+# Disable excessive background processes
+# Improve deep sleep efficiency
+ro.kernel.android.checkjni=0
+ro.config.hw_power_saving=1
