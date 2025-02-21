@@ -1,7 +1,7 @@
-id=MMT-Ex
-name=Magisk Module Template Extended
-version=v3.7
-versionCode=19
-author=Zackptg5
-description=Magisk Module Template Extended
+id=Conservative-X
+name=ConservativeX
+version=v1.0
+versionCode=001
+author=xetraxz
+description=Conservative Governer tweaks for better battery backup without losing performace.
 updateJson=https://raw.githubusercontent.com/Zackptg5/MMT-Extended/master/update.json
