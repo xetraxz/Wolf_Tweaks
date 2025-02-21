@@ -20,10 +20,6 @@ Tweak Conservative Governer Parameters To Get Best Battery Backup without compro
 
 ## Help
 
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
 
 ## Authors
 @xetraxz
