@@ -1,12 +1,6 @@
 #!/system/bin/sh
 # Grant full read/write/execute permissions to CPU governor files
-for CPU in /sys/devices/system/cpu/cpu[0-9]*; do
-    chmod "777" "$CPU/cpufreq/scaling_governor"
-    chmod "777" "$CPU/cpufreq/conservative/down_threshold"
-    chmod "777" "$CPU/cpufreq/conservative/up_threshold"
-    chmod "777" "$CPU/cpufreq/conservative/sampling_rate"
-    chmod "777" "$CPU/cpufreq/conservative/freq_step"
-done
+
 # Apply settings
 for CPU in /sys/devices/system/cpu/cpu[0-9]*; do
     echo "Setting conservative governor for $CPU..."
@@ -17,14 +11,7 @@ for CPU in /sys/devices/system/cpu/cpu[0-9]*; do
     echo "8000" > "$CPU/cpufreq/conservative/sampling_rate"
     echo "90" > "$CPU/cpufreq/conservative/freq_step"
 done
-# Restrict permissions after changes are applied
-for CPU in /sys/devices/system/cpu/cpu[0-9]*; do
-    chmod "444" "$CPU/cpufreq/scaling_governor"
-    chmod "444" "$CPU/cpufreq/conservative/down_threshold"
-    chmod "444" "$CPU/cpufreq/conservative/up_threshold"
-    chmod "444" "$CPU/cpufreq/conservative/sampling_rate"
-    chmod "444" "$CPU/cpufreq/conservative/freq_step"
-done
+
 
 # Disable kernel panic reboot
 echo "0" > /proc/sys/kernel/panic
@@ -66,5 +53,6 @@ rm -rf /data/tombstones/*
 rm -rf /data/misc/logd/*
 rm -rf /mnt/sdcard/Android/data/com.android.logger/*
 #color
+sleep 20
 service call SurfaceFlinger 1022 f 1.3
 #
