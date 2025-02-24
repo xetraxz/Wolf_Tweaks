@@ -1,17 +1,24 @@
 #!/system/bin/sh
 # Grant full read/write/execute permissions to CPU governor files
-
+sleep 10
 # Apply settings
-for CPU in /sys/devices/system/cpu/cpu[0-9]*; do
-    echo "Setting conservative governor for $CPU..."
-    
-    echo "conservative" > "$CPU/cpufreq/scaling_governor"
-    echo "60" > "$CPU/cpufreq/conservative/down_threshold"
-    echo "90" > "$CPU/cpufreq/conservative/up_threshold"
-    echo "8000" > "$CPU/cpufreq/conservative/sampling_rate"
-    echo "90" > "$CPU/cpufreq/conservative/freq_step"
-done
-
+# Set Conservative
+echo "conservative" > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
+echo "conservative" > /sys/devices/system/cpu/cpufreq/policy6/scaling_governor
+echo "conservative" > /sys/devices/system/cpu/cpufreq/policy4/scaling_governor
+#
+echo "60" > "/sys/devices/system/cpu/cpufreq/policy0/conservative/down_threshold"
+echo "90" > "/sys/devices/system/cpu/cpufreq/policy0/conservative/up_threshold"
+echo "8000" > "/sys/devices/system/cpu/cpufreq/policy0/conservative/sampling_rate"
+echo "90" > "/sys/devices/system/cpu/cpufreq/policy0/conservative/freq_step"
+echo "60" > "/sys/devices/system/cpu/cpufreq/policy6/conservative/down_threshold"
+echo "90" > "/sys/devices/system/cpu/cpufreq/policy6/conservative/up_threshold"
+echo "8000" > "/sys/devices/system/cpu/cpufreq/policy6/conservative/sampling_rate"
+echo "90" > "/sys/devices/system/cpu/cpufreq/policy6/conservative/freq_step"
+echo "60" > "/sys/devices/system/cpu/cpufreq/policy4/conservative/down_threshold"
+echo "90" > "/sys/devices/system/cpu/cpufreq/policy4/conservative/up_threshold"
+echo "8000" > "/sys/devices/system/cpu/cpufreq/policy4/conservative/sampling_rate"
+echo "90" > "/sys/devices/system/cpu/cpufreq/policy4/conservative/freq_step"
 
 # Disable kernel panic reboot
 echo "0" > /proc/sys/kernel/panic
@@ -23,16 +30,13 @@ echo "0" > /sys/module/kernel/parameters/panic_on_warn
 echo "0" > /sys/module/kernel/parameters/pause_on_oops
 echo "0" > /sys/module/kernel/panic_on_rcu_stall
 # Disable Qualcomm's watchdog (for Snapdragon devices)
-if [ -e /sys/module/msm_watchdog/parameters/pet_enable ]; then
-    chmod "777" /sys/module/msm_watchdog/parameters/pet_enable
-    echo "0" > /sys/module/msm_watchdog/parameters/pet_enable
-    chmod "444" /sys/module/msm_watchdog/parameters/pet_enable
-fi
-if [ -e /sys/module/msm_watchdog/parameters/enable ]; then
-    chmod "777" /sys/module/msm_watchdog/parameters/enable
-    echo 0 > /sys/module/msm_watchdog/parameters/enable
-    chmod "444" /sys/module/msm_watchdog/parameters/enable
-fi
+chmod "777" /sys/module/msm_watchdog/parameters/pet_enable
+echo "0" > /sys/module/msm_watchdog/parameters/pet_enable
+chmod "444" /sys/module/msm_watchdog/parameters/pet_enable
+chmod "777" /sys/module/msm_watchdog/parameters/enable
+echo 0 > /sys/module/msm_watchdog/parameters/enable
+chmod "444" /sys/module/msm_watchdog/parameters/enable
+
 #VM
 echo "10" > /proc/sys/vm/dirty_background_ratio
 echo "20" > /proc/sys/vm/dirty_ratio
