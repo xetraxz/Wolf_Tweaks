@@ -1,7 +1,6 @@
 id=wolftweaks
 name=Wolf Tweaks
-version=v1.0.3
-versionCode=004
+version=v2.0
+versionCode=200
 author=xetraxz
-description=Conservative Governer tweaks for better battery backup without losing performace.
-updateJson=https://raw.githubusercontent.com/xetraxz/Wolf_Tweaks/master/update.json
+description=QCOM Tweaks.

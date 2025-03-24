@@ -60,11 +60,19 @@
 
 ---
 
+## ▶️ Usage
+
+1. Open **Terminal**
+2. Run Command 
+> su -c wolf_tweak
+
+---
+
 ## 📌 Compatibility  
 
-✅ Works on **Android 9+** (Pie, Q, R, S, T)  
-✅ Supports Snapdragon, Exynos, and Mediatek processors  
-✅ **Root required** (Magisk)  
+✅ Works on **Android 9+** (Pie, Q, R, S, T , V)  
+✅ Supports Snapdragon Only
+✅ **Root required** (Magisk , KSU , KSU Next , Apatch)  
 
 ---
 
@@ -80,11 +88,10 @@
 ## 🐺 Join the Pack!  
 
 ### **📢 Community & Updates**  
-[![Telegram Group](https://img.shields.io/badge/Telegram-Join%20Group-blue?logo=telegram)](https://t.me/xetraxz)  
+[![Telegram](https://img.shields.io/badge/Telegram-Join%20Group-blue?logo=telegram)](https://t.me/xetraxz)  
 [![Telegram Channel](https://img.shields.io/badge/Telegram-Join%20Channel-blue?logo=telegram)](https://t.me/xetras_box)  
 
 🔧 **By:** xetraxz 
-🔥 **Unleash the full potential of your Android!**  
 
 ---
 

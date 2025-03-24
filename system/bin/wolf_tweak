@@ -1,0 +1,223 @@
+#!/bin/sh
+# Define color codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'  # No Color (reset)
+#
+width=$(stty size 2>/dev/null | awk '{print $2}')
+[ -z "$width" ] && width=80  # Default width if `stty size` fails
+bar_width=$((width - 12))
+line=$(printf '%*s' "$bar_width" '' | tr ' ' '=')
+dash=$(printf '%*s' "$width" '' | tr ' ' '_')
+# Print the banner
+BANNER="
+${RED}
+██╗    ██╗ ██████╗ ██╗     ███████╗
+██║    ██║██╔═══██╗██║     ██╔════╝
+██║ █╗ ██║██║   ██║██║     █████╗  
+██║███╗██║██║   ██║██║     ██╔══╝  
+╚███╔███╔╝╚██████╔╝███████╗██║     
+ ╚══╝╚══╝  ╚═════╝ ╚══════╝╚═╝  
+Telegram@xetrazx
+${NC}
+"
+echo "$dash"
+sleep 1
+echo -e "$BANNER"
+sleep 0.5
+echo "$dash"
+#
+# Detect all CPU frequency policy directories
+POLICIES=$(find /sys/devices/system/cpu/cpufreq/ -type d -name "policy*")
+
+# Function to print a formatted header
+print_header() {
+    echo ""
+    echo "${CYAN}--------------------------------------------${NC}"
+    echo "${GREEN}$1${NC}"
+    echo "${CYAN}--------------------------------------------${NC}"
+    echo ""
+    sleep 0.5
+}
+# Function to set the Conservative governor
+set_governor() {
+    echo ""
+    echo "${YELLOW}Setting Conservative governor for $1...${NC}"
+    echo "conservative" > "$1/scaling_governor"
+    sleep 0.5
+}
+# Function to update a governor parameter
+update_param() {
+    PARAM=$1
+    VALUE=$2
+    POLICY_PATH="$3/conservative"
+
+    FILE="$POLICY_PATH/$PARAM"
+    if [ -f "$FILE" ]; then
+        sleep 0.3
+        echo "$VALUE" > "$FILE"
+        echo "${GREEN}✔ Updated $PARAM to $VALUE for $POLICY_PATH${NC}"
+        sleep 0.3
+    else
+        echo "${RED}✖ Parameter $PARAM not found in $POLICY_PATH${NC}"
+    fi
+    echo ""
+}
+# Function to clear cache
+clear_cache() {
+    sync; echo 3 > /proc/sys/vm/drop_caches
+}
+# Function to kill background apps
+kill_apps() {
+    for app in $(dumpsys activity recents | grep "Recent #" | awk '{print $4}'); do
+        am force-stop $app
+    done
+}
+change_saturation() {
+    echo "📱 Applying screen saturation: $1"
+    su -c "service call SurfaceFlinger 1022 f $1" > /dev/null
+    echo "📱 Saturation set to $1 successfully!"
+}
+dexopt_optimization() {
+    MODE="everything-profile"
+
+    echo "Deleting Cache..."
+    su -c "rm -rf /data/system/package_cache/*"
+    su -c "rm -rf /data/dalvik_cache/*"
+
+    echo "Compiling in $MODE..."
+    pm compile -m $MODE --full -a
+
+    echo "Running Background Optimization..."
+    pm art dexopt-packages -r bg-dexopt
+
+    echo ""
+    echo "🗑️ Cleaning Unused Code..."
+    pm art cleanup
+
+    echo ""
+    echo "💾 Writing Memory Changes..."
+    sync
+
+    echo ""
+    echo "✅ Dexopt Optimization Completed!"
+}
+disable_gms_admin() {
+    GMS="com.google.android.gms"
+    GC1="auth.managed.admin.DeviceAdminReceiver"
+    GC2="mdm.receivers.MdmDeviceAdminReceiver"
+    NLL="/dev/null"
+
+    echo "Disabling Google Mobile Services (GMS) Admin Components..."
+
+    for U in $(ls /data/user); do
+        for C in $GC1 $GC2; do
+            su -c "pm disable --user $U \"$GMS/$GMS.$C\" &> $NLL"
+        done
+    done
+
+    echo "Adding GMS to battery optimization whitelist..."
+    su -c "dumpsys deviceidle whitelist -com.google.android.gms &> $NLL"
+
+    echo "GMS Admin Components Disabled!"
+}
+# Check if running as root
+if [ "$(id -u)" -ne 0 ]; then
+    echo ""
+    echo "${RED}✖ This script must be run as root!${NC}"
+    echo "Try: ${YELLOW}su -c 'sh conservative_auto.sh'${NC}"
+    echo ""
+    exit 1
+fi
+# Ask for confirmation
+echo ""
+echo "${YELLOW}Do you want to apply Conservative Governor settings? (Y/N)${NC}"
+read user_input
+echo ""
+if [ "$if [ "$user_input" = "Y" ] || [ "$user_input" = "y" ]; then" = "Y" ] || [ "$user_input" = "y" ]; then
+    echo "${GREEN}Proceeding with Conservative Governor setup...${NC}" 
+    # Add your Conservative Governor setup commands here
+    # Apply settings to all policies
+    for POLICY in $POLICIES; do
+    print_header "Processing $POLICY"
+    
+    set_governor "$POLICY"
+    
+    # Ensure the conservative parameter folder exists
+    if [ ! -d "$POLICY/conservative" ]; then
+        echo ""
+        echo "${RED}✖ Skipping $POLICY: Conservative governor parameters not available.${NC}"
+        echo ""
+        sleep 1
+        continue
+    fi
+    
+    echo "${BLUE}Applying Conservative Governor parameters for $POLICY...${NC}"
+    echo ""
+    sleep 0.5
+    
+    # Automatically apply these settings with small delays
+    update_param "sampling_rate" "8000" "$POLICY"      # Adjust CPU frequency every 8ms
+    update_param "up_threshold" "85" "$POLICY"        # Increase frequency if CPU load > 85%
+    update_param "down_threshold" "69" "$POLICY"      # Decrease frequency if CPU load < 69%
+    update_param "freq_step" "45" "$POLICY"           # Adjust frequency in 45% steps
+    done
+    
+    print_header "✅ Conservative Governor Applied Successfully!"
+    #
+    sync
+else
+    echo "${RED}Operation Cancelled."${NC}
+fi
+#
+echo""
+echo "▶️ Proceeding to the next step..."
+echo ""
+# Ask if the user wants to change the saturation
+echo "Do you want to change screen saturation? (Y/N)"
+read user_input
+echo ""
+if [ "$user_input" = "Y" ] || [ "$user_input" = "y" ]; then
+    echo "Enter the desired saturation value (e.g., 1.0 for default, 1.2 for vibrant colors):"
+    read saturation_value
+    change_saturation $saturation_value
+else
+    echo "${RED}Operation Cancelled."${NC}
+fi
+#
+sleep 1
+# Dex2Oat
+echo ""
+echo "Optimize system dex files? Will Take Long Time(Y/N)"
+read user_input
+echo ""
+if [ "$user_input" = "Y" ] || [ "$user_input" = "y" ]; then
+    dexopt_optimization
+else
+    echo "${RED}Operation Cancelled."${NC}
+fi
+#
+echo ""
+echo "🚀 Clearing cache..."
+clear_cache
+sleep 1
+echo "❌ Killing background apps..."
+kill_apps
+sleep 1
+echo "🚀 RAM cleanup completed."
+#GMS
+echo ""
+echo "🔋Do you want to Enable GMS Doze (Y/N)"
+read user_input
+echo ""
+if [ "$user_input" = "Y" ] || [ "$user_input" = "y" ]; then 
+    disable_gms_admin 
+else
+    echo "${RED}Operation Cancelled."${NC}
+fi
+# Continue to the next step
+echo ""
+echo "${BLUE}DONE${NC}"
+echo ""

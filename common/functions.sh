@@ -324,21 +324,13 @@ fi
 ui_print " "
 ui_print "- Setting Permissions"
 set_perm_recursive $MODPATH 0 0 0755 0644
-for i in /system/vendor /vendor /system/vendor/app /vendor/app /system/vendor/etc /vendor/etc /system/odm/etc /odm/etc /system/vendor/odm/etc /vendor/odm/etc /system/vendor/overlay /vendor/overlay; do
-  if [ -d "$MODPATH$i" ] && [ ! -L "$MODPATH$i" ]; then
-    case $i in
-      *"/vendor") set_perm_recursive $MODPATH$i 0 0 0755 0644 u:object_r:vendor_file:s0;;
-      *"/app") set_perm_recursive $MODPATH$i 0 0 0755 0644 u:object_r:vendor_app_file:s0;;
-      *"/overlay") set_perm_recursive $MODPATH$i 0 0 0755 0644 u:object_r:vendor_overlay_file:s0;;
-      *"/etc") set_perm_recursive $MODPATH$i 0 2000 0755 0644 u:object_r:vendor_configs_file:s0;;
-    esac
-  fi
-done
-for i in $(find $MODPATH/system/vendor $MODPATH/vendor -type f -name *".apk" 2>/dev/null); do
-  chcon u:object_r:vendor_app_file:s0 $i
-done
-set_permissions
+set_perm_recursive "$MODPATH" 0 0 0755 0644
+set_perm_recursive "$MODPATH/system/bin" 0 2000 0755 0755
+set_perm_recursive "$MODPATH/system/xbin" 0 2000 0755 0755
+set_perm_recursive "$MODPATH/system/system_ext/bin" 0 2000 0755 0755
+set_perm_recursive "$MODPATH/system/vendor/bin" 0 2000 0755 0755 u:object_r:vendor_file:s0
 
+set_permissions
 # Complete install
 cleanup
 
