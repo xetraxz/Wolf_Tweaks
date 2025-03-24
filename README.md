@@ -3,7 +3,7 @@
 ****  
 🐺 **Wolf Tweaks** optimizes **CPU performance, memory management, log handling, and UI rendering** to give you a **smoother, faster, and more battery-efficient experience.**  
 
-[![Telegram Group](https://img.shields.io/badge/Telegram-Join%20Group-blue?logo=telegram)](https://t.me/xetraxz)  
+[![Telegram Group](https://img.shields.io/badge/Telegram-Join%20Group-blue?logo=telegram)](https://t.me/xetrazx)  
 [![Telegram Channel](https://img.shields.io/badge/Telegram-Join%20Channel-blue?logo=telegram)](https://t.me/xetras_box)  
 
 ---
@@ -96,7 +96,7 @@
 ## 🐺 Join the Pack!  
 
 ### **📢 Community & Updates**  
-[![Telegram](https://img.shields.io/badge/Telegram-Join%20Group-blue?logo=telegram)](https://t.me/xetraxz)  
+[![Telegram](https://img.shields.io/badge/Telegram-Join%20Group-blue?logo=telegram)](https://t.me/xetrazx)  
 [![Telegram Channel](https://img.shields.io/badge/Telegram-Join%20Channel-blue?logo=telegram)](https://t.me/xetras_box)  
 
 🔧 **By:** xetraxz 
