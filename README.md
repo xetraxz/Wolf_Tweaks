@@ -13,10 +13,10 @@
 ### 🖥️ CPU Governor Optimization  
 - Sets **all CPUs** to **"conservative"** mode for balanced performance & efficiency.  
 - Configures CPU thresholds:  
-  - 🔽 **down_threshold** → 60 (reduces frequency at 60% load)  
-  - 🔼 **up_threshold** → 90 (increases frequency at 90% load)  
+  - 🔽 **down_threshold** → 65 (reduces frequency at 60% load)  
+  - 🔼 **up_threshold** → 85 (increases frequency at 90% load)  
   - ⏳ **sampling_rate** → 8000 (sets CPU polling rate)  
-  - ⚙️ **freq_step** → 90 (controls frequency step changes)  
+  - ⚙️ **freq_step** → 45 (controls frequency step changes)  
 - **Locks CPU governor settings** after applying to prevent unwanted changes.  
 
 ---
@@ -24,6 +24,11 @@
 ### 🛡️ Kernel Panic & Watchdog Disabling  
 - **Disables automatic reboot on kernel panic** to prevent forced restarts.  
 - **Turns off Qualcomm's MSM watchdog**, stopping forced resets on Snapdragon devices.  
+
+---
+
+### 🔋 GMS Doze
+- **Prevents** Google from Waking up Device from Sleep.
 
 ---
 
@@ -36,7 +41,10 @@
 - **Disables RAM dumps**, preventing unnecessary storage usage.  
 
 ---
+### ⚙️ Dex2Oat  
+- Runs **Dex2Oat** on **Everything-Profile** for Optimization.  
 
+---
 ### 🧹 Log Cleanup & Storage Optimization  
 - **Removes system logs** from:  
   - `/data/log/`  

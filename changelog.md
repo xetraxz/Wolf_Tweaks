@@ -9,5 +9,8 @@
 ### v2.0.0
 * Cleaned Code
 * Auto to Manual Config
+* Added Saturation Boost Option
+* Added Dex2Oat Option
+* GMS Doze
 * Fixed Governer Stuck on Default
 * Removed BT Variant
